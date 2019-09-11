@@ -15,7 +15,17 @@
 
     <script type='text/jsx'>
         var HelloMessage = React.createClass({
+                    componentWillMount: function() {
+                        console.log('componentWillMount');
+                    },
+                    componentDidMount: function() {
+                        console.log('componentDidMount');
+                    },
+                    componentWillUnmount: function() {
+                        console.log('componentWillUnmount');
+                    },
                     render: function() {
+                        console.log('render');
                         return <div>{this.props.message}</div>
                     }
                 });
@@ -81,12 +91,18 @@
                         newState[key]=value;
                         this.setState(newState);
                     },
+                    reload: function() {
+                        const viewEl=document.getElementById('view');
+                        ReactDOM.unmountComponentAtNode(viewEl);
+                        ReactDOM.render(<HelloReact/>, viewEl);
+                    },
                     render: function() {
                         return (
                             <div>
                                 <HelloMessage message={'Hello '+this.state.firstName + ' '+this.state.lastName}></HelloMessage>
                                 <TextBox label='First Name' update={this.update.bind(null, 'firstName')}></TextBox>
                                 <TextBox label='Last Name' update={this.update.bind(null, 'lastName')}></TextBox>
+                                <button onClick={this.reload}>Reload</button>
                             </div>
                         );
                     }
