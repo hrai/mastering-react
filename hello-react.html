@@ -7,19 +7,26 @@
     </head>
         <body>
             <script type='text/jsx'>
+                var HelloMessage = React.createClass({
+                    render: function() {
+                        return <div>{this.props.message}</div>
+                    }
+                });
                 var HelloReact = React.createClass({
-                getInitialState: function() {
-                return {
-                message: 'I\'m from default state'
-                };
-                },
+                    getInitialState: function() {
+                        return {
+                        message: 'I\'m from default state'
+                        };
+                    },
                 updateMessage: function(e) {
-                    this.setState({message: e.target.value});
+                console.info('updateMessage');
+                    this.setState({message: this.refs.messageTextBox.value});
                 },
                     render: function() {
                         return (<div>
-                                <h1>Hello React</h1>
-                                <input type="text" onChange={this.updateMessage} />
+                                <HelloMessage message='Hello React'></HelloMessage>
+                                <input type="text" ref='messageTextBox' />
+                                <button onClick={this.updateMessage} >Update</button>
                                 <div>{this.state.message + ' and from JSX'}</div>
                             </div>
                         );
