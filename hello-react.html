@@ -6,9 +6,15 @@
         <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
-        <body>
-            <script type='text/jsx'>
-                var HelloMessage = React.createClass({
+    <body>
+
+        <div id="view">
+
+        </div>
+    </body>
+
+    <script type='text/jsx'>
+        var HelloMessage = React.createClass({
                     render: function() {
                         return <div>{this.props.message}</div>
                     }
@@ -87,10 +93,5 @@
                 });
 
                 ReactDOM.render(<HelloReact />, document.getElementById('view'));
-            </script>
-
-            <div id="view">
-
-            </div>
-        </body>
+    </script>
 </html>
