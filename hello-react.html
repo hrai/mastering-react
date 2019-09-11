@@ -8,6 +8,11 @@
         <body>
             <script type='text/jsx'>
                 var HelloReact = React.createClass({
+                propTypes: {
+                    message: React.PropTypes.string,
+                    number: React.PropTypes.number,
+                    requiredString: React.PropTypes.string.isRequired
+                },
                     render: function() {
                         return (<div>
                                 <h1>Hello React</h1>
