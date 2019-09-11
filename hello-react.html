@@ -8,6 +8,11 @@
         <body>
             <script type='text/jsx'>
                 var HelloReact = React.createClass({
+                getDefaultProps: function() {
+                return {
+                message: 'I\'m from default'
+                };
+                },
                 propTypes: {
                     message: React.PropTypes.string,
                     number: React.PropTypes.number,
@@ -22,7 +27,7 @@
                     }
                 });
 
-                ReactDOM.render(<HelloReact message='Message from props'/>, document.getElementById('view'));
+                ReactDOM.render(<HelloReact message='Message from props' number='not a num'/>, document.getElementById('view'));
             </script>
 
             <div id="view">
