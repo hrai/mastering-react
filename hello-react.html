@@ -12,22 +12,56 @@
                         return <div>{this.props.message}</div>
                     }
                 });
+                var TextBox = React.createClass({
+                    getInitialState: function() {
+                        return {isEditing: false};
+                    },
+                    update: function() {
+                        this.props.update(this.refs.messageTextBox.value);
+                        this.setState({
+                            isEditing: false
+                        });
+                    },
+                    edit: function() {
+                        this.setState({
+                            isEditing: true
+                        });
+                    },
+                    render: function() {
+                        return (
+                            <div>
+                                {this.props.label}
+                                <br/>
+                                <input type='text' ref='messageTextBox' disabled={!this.state.isEditing} />
+                                {
+                                    this.state.isEditing ?
+                                        <button onClick={this.update}>Update</button>:
+                                        <button onClick={this.edit}>Edit</button>
+                                }
+                            </div>
+
+                        );
+                    }
+                });
+
                 var HelloReact = React.createClass({
                     getInitialState: function() {
                         return {
-                        message: 'I\'m from default state'
+                            firstName: '',
+                            lastName: ''
                         };
                     },
-                updateMessage: function(e) {
-                console.info('updateMessage');
-                    this.setState({message: this.refs.messageTextBox.value});
-                },
+                    update: function(key, value) {
+                        var newState={};
+                        newState[key]=value;
+                        this.setState(newState);
+                    },
                     render: function() {
-                        return (<div>
-                                <HelloMessage message='Hello React'></HelloMessage>
-                                <input type="text" ref='messageTextBox' />
-                                <button onClick={this.updateMessage} >Update</button>
-                                <div>{this.state.message + ' and from JSX'}</div>
+                        return (
+                            <div>
+                                <HelloMessage message={'Hello '+this.state.firstName + ' '+this.state.lastName}></HelloMessage>
+                                <TextBox label='First Name' update={this.update.bind(null, 'firstName')}></TextBox>
+                                <TextBox label='Last Name' update={this.update.bind(null, 'lastName')}></TextBox>
                             </div>
                         );
                     }
