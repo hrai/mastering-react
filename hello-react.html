@@ -54,6 +54,14 @@
                     }
                 });
 
+                var GlyphIcon= React.createClass({
+                    render: function() {
+                        return (
+                            <span className={'glyphicon glyphicon-'+this.props.icon}></span>
+                        );
+                    }
+                });
+
                 var HelloReact = React.createClass({
                     getInitialState: function() {
                         return {
