@@ -8,15 +8,19 @@
         <body>
             <script type='text/jsx'>
                 var HelloReact = React.createClass({
-                getDefaultProps: function() {
+                getInitialState: function() {
                 return {
-                message: 'I\'m from default'
+                message: 'I\'m from default state'
                 };
+                },
+                updateMessage: function(e) {
+                    this.setState({message: e.target.value});
                 },
                     render: function() {
                         return (<div>
                                 <h1>Hello React</h1>
-                                <div>{this.props.message + ' and from JSX'}</div>
+                                <input type="text" onChange={this.updateMessage} />
+                                <div>{this.state.message + ' and from JSX'}</div>
                             </div>
                         );
                     }
