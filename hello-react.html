@@ -4,33 +4,149 @@
         <script src="https://fb.me/react-with-addons-0.14.0.js"> </script>
         <script src="https://fb.me/react-dom-0.14.0.js"> </script>
         <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
-        <body>
-            <script type='text/jsx'>
-                var HelloReact = React.createClass({
-                getInitialState: function() {
-                return {
-                message: 'I\'m from default state'
-                };
-                },
-                updateMessage: function(e) {
-                    this.setState({message: e.target.value});
-                },
+    <body>
+
+        <div id="view">
+
+        </div>
+    </body>
+
+    <script type='text/jsx'>
+        var HelloMessage = React.createClass({
+                    componentWillMount: function() {
+                        console.log('componentWillMount');
+                    },
+                    componentDidMount: function() {
+                        console.log('componentDidMount');
+                    },
+                    componentWillUnmount: function() {
+                        console.log('componentWillUnmount');
+                    },
                     render: function() {
-                        return (<div>
-                                <h1>Hello React</h1>
-                                <input type="text" onChange={this.updateMessage} />
-                                <div>{this.state.message + ' and from JSX'}</div>
+                        console.log('render');
+                        return <div>{this.props.message}</div>
+                    }
+                });
+                var TextBox = React.createClass({
+                    getInitialState: function() {
+                        return {isEditing: false};
+                    },
+                    update: function() {
+                        this.props.update(this.refs.messageTextBox.value);
+                        this.setState({
+                            isEditing: false
+                        });
+                    },
+                    edit: function() {
+                        this.setState({
+                            isEditing: true
+                        });
+                    },
+                    render: function() {
+                        return (
+                            <div>
+                                {this.props.label}
+                                <br/>
+                                <input type='text' ref='messageTextBox' disabled={!this.state.isEditing} />
+                                {
+                                    this.state.isEditing ?
+                                        <Button onClick={this.update}><GlyphIcon icon='ok'/>Update</Button>:
+                                        <Button onClick={this.edit}><GlyphIcon icon='pencil'/>Edit</Button>
+                                }
+                            </div>
+
+                        );
+                    }
+                });
+
+                var Button= React.createClass({
+                    render: function() {
+                        return (
+                            <button onClick={this.props.onClick}>
+                                {this.props.children}
+                            </button>
+                        );
+                    }
+                });
+
+                var GlyphIcon= React.createClass({
+                    render: function() {
+                        return (
+                            <span className={'glyphicon glyphicon-'+this.props.icon}></span>
+                        );
+                    }
+                });
+
+                var HelloReact = React.createClass({
+                    getDefaultProps: function(){
+                        return {likes: 0};
+                    },
+                    getInitialState: function() {
+                        return {
+                            firstName: '',
+                            lastName: '',
+                            isIncreasing: false
+                        };
+                    },
+                    componentWillReceiveProps(nextProps) {
+                        this._logPropsAndState('componentWillReceiveProps()');
+                        console.log('nextProps.likes: ' +nextProps.likes);
+
+                        this.setState({
+                            isIncreasing: nextProps.likes>this.props.likes
+                        });
+                    },
+                    shouldComponentUpdate(nextProps, nextState) {
+                        this._logPropsAndState('shouldComponentUpdate()');
+                        console.log( 'nextProps.likes: ', nextProps.likes, ' nextState.isIncreasing: ', nextState.isIncreasing );
+                        return nextProps.likes>1;
+                    },
+                    componentDidUpdate(prevProps, prevState) {
+                        this._logPropsAndState('componentDidUpdate()');
+                        console.log( 'prevProps.likes: ', prevProps.likes, ' prevState.isIncreasing:', prevState.isIncreasing);
+                        console.log('componentDidUpdate() gives an opportunity to execute code after react is finished updating the DOM.'); },
+                    _logPropsAndState(callingFunction) {
+                        console.log('=> ' + callingFunction);
+
+                        console.log('this.props.likes: ' + this.props.likes);
+                        console.log('this.state.isIncreasing: ' + this.state.isIncreasing);
+                    },
+                    like(){
+                        this.setProps({likes: this.props.likes+1});
+                    },
+                    unlike(){
+                        this.setProps({likes: this.props.likes-1});
+                    },
+                    update: function(key, value) {
+                        var newState={};
+                        newState[key]=value;
+                        this.setState(newState);
+                    },
+                    reload: function() {
+                        const viewEl=document.getElementById('view');
+                        ReactDOM.unmountComponentAtNode(viewEl);
+                        ReactDOM.render(<HelloReact/>, viewEl);
+                    },
+                    render: function() {
+                        this._logPropsAndState('render()');
+                        return (
+                            <div>
+                                <HelloMessage message={'Hello '+this.state.firstName + ' '+this.state.lastName}></HelloMessage>
+                                <TextBox label='First Name' update={this.update.bind(null, 'firstName')}></TextBox>
+                                <TextBox label='Last Name' update={this.update.bind(null, 'lastName')}></TextBox>
+                                <Button onClick={this.reload}>Reload</Button>
+                                <Button onClick={this.like}><GlyphIcon icon='thumbs-up'/>Like</Button>
+                                <Button onClick={this.unlike}><GlyphIcon icon='thumbs-down'/>Unlike</Button>
+                                <br/>
+                                Likes {this.props.likes}<GlyphIcon icon={this.state.isIncreasing ?
+                                    'circle-arrow-up': 'circle-arrow-down'}/>
                             </div>
                         );
                     }
                 });
 
                 ReactDOM.render(<HelloReact />, document.getElementById('view'));
-            </script>
-
-            <div id="view">
-
-            </div>
-        </body>
+    </script>
 </html>
