@@ -11,13 +11,17 @@
                     render: function() {
                         return (<div>
                                 <h1>Hello React</h1>
-                                <div>{this.props.message}</div>
+                                <div>{this.props.message + ' and from JSX'}</div>
                             </div>
                         );
                     }
                 });
 
-                ReactDOM.render(<HelloReact message='Message from props'/>, document.body);
+                ReactDOM.render(<HelloReact message='Message from props'/>, document.getElementById('view'));
             </script>
+
+            <div id="view">
+
+            </div>
         </body>
 </html>
