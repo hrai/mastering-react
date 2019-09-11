@@ -13,11 +13,6 @@
                 message: 'I\'m from default'
                 };
                 },
-                propTypes: {
-                    message: React.PropTypes.string,
-                    number: React.PropTypes.number,
-                    requiredString: React.PropTypes.string.isRequired
-                },
                     render: function() {
                         return (<div>
                                 <h1>Hello React</h1>
@@ -27,7 +22,7 @@
                     }
                 });
 
-                ReactDOM.render(<HelloReact message='Message from props' number='not a num'/>, document.getElementById('view'));
+                ReactDOM.render(<HelloReact />, document.getElementById('view'));
             </script>
 
             <div id="view">
