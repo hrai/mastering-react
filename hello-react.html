@@ -11,13 +11,13 @@
                     render: function() {
                         return (<div>
                                 <h1>Hello React</h1>
-                                <div>How are you?</div>
+                                <div>{this.props.message}</div>
                             </div>
                         );
                     }
                 });
 
-                ReactDOM.render(<HelloReact/>, document.body);
+                ReactDOM.render(<HelloReact message='Message from props'/>, document.body);
             </script>
         </body>
 </html>
