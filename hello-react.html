@@ -4,6 +4,7 @@
         <script src="https://fb.me/react-with-addons-0.14.0.js"> </script>
         <script src="https://fb.me/react-dom-0.14.0.js"> </script>
         <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
         <body>
             <script type='text/jsx'>
@@ -35,8 +36,8 @@
                                 <input type='text' ref='messageTextBox' disabled={!this.state.isEditing} />
                                 {
                                     this.state.isEditing ?
-                                        <button onClick={this.update}>Update</button>:
-                                        <button onClick={this.edit}>Edit</button>
+                                        <Button onClick={this.update}><GlyphIcon icon='ok'/>Update</Button>:
+                                        <Button onClick={this.edit}><GlyphIcon icon='pencil'/>Edit</Button>
                                 }
                             </div>
 
