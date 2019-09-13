@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"> <meta charset="UTF-8"> <title>Hello React</title>
+        <script src="https://fb.me/react-with-addons-0.14.0.js"> </script>
+        <script src="https://fb.me/react-dom-0.14.0.js"> </script>
+        <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <div id="view">
+
+        </div>
+    </body>
+
+    <script type='text/jsx'>
+                var UserRow = React.createClass({
+                    render() {
+                        return (
+                        <tr>
+                            <td>{this.props.user.userName}</td>
+                            <td> <a href={'mailto:' + this.props.user.email}> {this.props.user.email} </a> </td>
+                        </tr>
+                        );
+                    }
+                });
+
+                var UserList = React.createClass({
+                    getInitialState() {
+                        return {
+                            users:[
+                                { userName: 'RyanVice', email: 'ryan@vicesoftware.com' },
+                                { id: 2, userName: 'AdamHorton', email: 'digitalicarus@gmail.com' }
+                            ]};
+                    },
+                    render: function() {
+                            let users=this.state.users.map((user)=>{
+                                return (<UserRow user={user} key={user.id}/>);
+                            });
+
+                            return (<table> <tr>
+                                <th>User Name</th>
+                                <th>Email Address</th>
+                            </tr>
+                            {users}
+                            </table>
+                        );
+                    }
+                });
+
+                ReactDOM.render(<UserList />, document.getElementById('view'));
+    </script>
+</html>
