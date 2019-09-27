@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"> <meta charset="UTF-8"> <title>Hello React</title>
+        <script src="https://fb.me/react-with-addons-0.14.0.js"> </script>
+        <script src="https://fb.me/react-dom-0.14.0.js"> </script>
+        <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+        div {
+            padding-right: 5px;
+        }
+
+        input {
+            margin: 5px;
+        }
+        </style>
+    </head>
+    <body>
+
+        <div id="view">
+
+        </div>
+    </body>
+
+    <script type='text/jsx'>
+                var ExampleForm = React.createClass({
+                    getInitialState: function() {
+                        return { message: 'Read and write' }
+                    },
+                    getDefaultProps: function () {
+                        return { message: 'Read only' }
+                    },
+                    onChange: function(event) {
+                        this.setState({message: event.target.value});
+                    },
+                    render: function() {
+                        return (
+                            <div>
+                                <input id='readOnly' className='form-control' type='text'
+                                    value={this.props.message}/>
+                                <input id='readAndWrite' className="form-control" type='text'
+                                    value={this.state.message}
+                                    onChange={this.onChange}/>
+                            </div>
+                        );
+                    }
+                });
+                ReactDOM.render(<ExampleForm />, document.getElementById('view'));
+        </script>
+        </html>
