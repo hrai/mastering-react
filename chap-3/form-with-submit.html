@@ -57,12 +57,13 @@ var ExampleForm = React.createClass({
        var self = this;
        return (
             <form onSubmit={this.onSubmit}>
-                <TextBox name='firstName' 
-                    value={this.state.form.firstName}
-                    onChange={this.onChange}/>
-                <TextBox name='lastName'
-                    value={this.state.form.lastName}
-                    onChange={this.onChange}/>
+                {Object.keys(this.state.form).map(function(key){
+                    return (
+                        <TextBox name={key}
+                            value={self.state.form[key]}
+                            onChange={self.onChange}/>
+                    );
+                })}
                 <button className='btn btn-success' 
                 	type='submit'>Submit</button>
             </form>
